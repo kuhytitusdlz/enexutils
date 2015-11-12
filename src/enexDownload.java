@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import com.evernote.auth.EvernoteAuth;
 import com.evernote.auth.EvernoteService;
 import com.evernote.clients.ClientFactory;
@@ -41,11 +36,6 @@ import java.util.TimeZone;
  */
 public class enexDownload {
 
-    /**
-     * *************************************************************************
-     * You shouldn't need to change anything below here to run sample code *
-     * *************************************************************************
-     */
     private UserStoreClient userStore;
     private NoteStoreClient noteStore;
 
