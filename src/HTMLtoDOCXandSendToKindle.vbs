@@ -1,4 +1,4 @@
-Option Explicit
+п»їOption Explicit
 
 Main
 Private Sub Main
@@ -9,7 +9,7 @@ Dim arguments
 	Dim fName
 	
     If arguments.Count = 0 Then
-    	ReDim Preserve arr(2) ' расширить массив до 2х с сохранением прежних значений (preserve)
+    	ReDim Preserve arr(2) ' СЂР°СЃС€РёСЂРёС‚СЊ РјР°СЃСЃРёРІ РґРѕ 2С… СЃ СЃРѕС…СЂР°РЅРµРЅРёРµРј РїСЂРµР¶РЅРёС… Р·РЅР°С‡РµРЅРёР№ (preserve)
 		arr(0) = ".\enex"
 		arr(1) = ".html"
 		'SearchFiles(arr)
@@ -114,7 +114,7 @@ Function ConvertHtml(documentFileName)
 	For Each Shape In newDocument.InlineShapes
 		If (Shape.Type = wdInlineShapeLinkedPicture) Or (Shape.Type = wdInlineShapeLinkedPictureHorizontalLine) Then
 		  Shape.LinkFormat.SavePictureWithDocument = True
-		  Shape.LinkFormat.BreakLink ' отвязать ссылки на картинки
+		  Shape.LinkFormat.BreakLink ' РѕС‚РІСЏР·Р°С‚СЊ СЃСЃС‹Р»РєРё РЅР° РєР°СЂС‚РёРЅРєРё
 		End If
 	Next    
 	newDocument.SaveAs SaveFileName, wdFormatXMLDocument
@@ -179,9 +179,9 @@ Function SearchFiles(arr)
 	
 	'sPath,vKillDate,arFilesToKill,bIncludeSubFolders
 	
-	'arr(0) - каталог, в котором искать
-	'arr(1) - строка, в которой искать
-	'arr(2) - если true, то также ищем в подпапках
+	'arr(0) - РєР°С‚Р°Р»РѕРі, РІ РєРѕС‚РѕСЂРѕРј РёСЃРєР°С‚СЊ
+	'arr(1) - СЃС‚СЂРѕРєР°, РІ РєРѕС‚РѕСЂРѕР№ РёСЃРєР°С‚СЊ
+	'arr(2) - РµСЃР»Рё true, С‚Рѕ С‚Р°РєР¶Рµ РёС‰РµРј РІ РїРѕРґРїР°РїРєР°С…
 	
 	'If arr(3) = true then
 	'End if
@@ -196,33 +196,33 @@ Function SearchFiles(arr)
 	
 	set folder = objFSO.getfolder(arr(0))
 	set files = folder.files
-	count = -1 ' используем для расширения массива
+	count = -1 ' РёСЃРїРѕР»СЊР·СѓРµРј РґР»СЏ СЂР°СЃС€РёСЂРµРЅРёСЏ РјР°СЃСЃРёРІР°
 	fCount = folder.files.Count	
 	for each file in files
 		'msgBox Instr(objFSO.GetFileName(file), arr(1), 1)
-		If (Instr(1, objFSO.GetFileName(file), arr(1), 1) <> 0) then ' ищем с первого символа, без учета регистра
+		If (Instr(1, objFSO.GetFileName(file), arr(1), 1) <> 0) then ' РёС‰РµРј СЃ РїРµСЂРІРѕРіРѕ СЃРёРјРІРѕР»Р°, Р±РµР· СѓС‡РµС‚Р° СЂРµРіРёСЃС‚СЂР°
 			'msgBox objFSO.GetFileName(file) & vbCrLf & objFSO.GetBaseName(file) & vbCrLf & objFSO.GetExtensionName(file)
-			count = count + 1 ' если нашли файл, то расширяем массив
+			count = count + 1 ' РµСЃР»Рё РЅР°С€Р»Рё С„Р°Р№Р», С‚Рѕ СЂР°СЃС€РёСЂСЏРµРј РјР°СЃСЃРёРІ
 			ReDim Preserve arr2(count)
-			set arr2(count) = file ' сохраняем в массив путь до найденного файла
+			set arr2(count) = file ' СЃРѕС…СЂР°РЅСЏРµРј РІ РјР°СЃСЃРёРІ РїСѓС‚СЊ РґРѕ РЅР°Р№РґРµРЅРЅРѕРіРѕ С„Р°Р№Р»Р°
 			'WScript.Quit
 		End if
 		'
 		'if not isnull(dtlastmodified) Then
-		'	'WriteToLog("INFO: найденные файлы " & file)
+		'	'WriteToLog("INFO: РЅР°Р№РґРµРЅРЅС‹Рµ С„Р°Р№Р»С‹ " & file)
 		'	if dtlastmodified < vKillDate then
 		'		count = ubound(arFilesToKill) + 1
 		'		redim preserve arFilesToKill(count)
 		'		set arFilesToKill(count) = file
-		'		'WriteToLog("INFO: найденные файлы удовлетворяющие условию " & file)
+		'		'WriteToLog("INFO: РЅР°Р№РґРµРЅРЅС‹Рµ С„Р°Р№Р»С‹ СѓРґРѕРІР»РµС‚РІРѕСЂСЏСЋС‰РёРµ СѓСЃР»РѕРІРёСЋ " & file)
 		'	end if
 		'end if
 	next
 	
 	SearchFiles = arr2
-	Erase arr ' очистить массив
+	Erase arr ' РѕС‡РёСЃС‚РёС‚СЊ РјР°СЃСЃРёРІ
 	Erase arr2
-'	' проверить файлы в подпапках	
+'	' РїСЂРѕРІРµСЂРёС‚СЊ С„Р°Р№Р»С‹ РІ РїРѕРґРїР°РїРєР°С…	
 '	if bIncludeSubFolders then
 '		for each fldr in folder.subfolders
 '		  SelectFiles fldr.path,vKillDate,arFilesToKill,true
@@ -296,12 +296,12 @@ End Function
 
 Function DeleteFiles(fName)
 '
-'	удалить файлы .docx, .html, .enex и каталог "_folder"
+'	СѓРґР°Р»РёС‚СЊ С„Р°Р№Р»С‹ .docx, .html, .enex Рё РєР°С‚Р°Р»РѕРі "_folder"
 '
 '
 	dim filesys
 	Set filesys = CreateObject("Scripting.FileSystemObject")
-	If filesys.FileExists(fName) Then ' если .docx существует
+	If filesys.FileExists(fName) Then ' РµСЃР»Рё .docx СЃСѓС‰РµСЃС‚РІСѓРµС‚
 		filesys.DeleteFile fName
 		
 		fName = Left(fName, InStrRev(fName, ".")) & "html"
