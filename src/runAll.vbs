@@ -1,4 +1,4 @@
-Option Explicit
+п»їOption Explicit
 
 Main
 Private Sub Main
@@ -12,14 +12,14 @@ Private Sub Main
 	           """tag:kindle created:day-30"""                                                                            &" "&_
 	           """./enex"""                                                                                               &" "&_
 	           """PRODUCTION"""
-	objShell.exec(command)	' скачать новые .enex-файлы
-	Wscript.Sleep 30000		' поскольку vbs не ждет пока отработает java, то ждем сами
+	objShell.exec(command)	' СЃРєР°С‡Р°С‚СЊ РЅРѕРІС‹Рµ .enex-С„Р°Р№Р»С‹
+	Wscript.Sleep 30000		' РїРѕСЃРєРѕР»СЊРєСѓ vbs РЅРµ Р¶РґРµС‚ РїРѕРєР° РѕС‚СЂР°Р±РѕС‚Р°РµС‚ java, С‚Рѕ Р¶РґРµРј СЃР°РјРё
 	
 	command =  java                                        &" "&_
 	           "-classpath .\build\classes;jdom-2.0.6.jar enexToHtml"    &" "&_
 	           """./enex"""
 	objShell.exec(command)
-	Wscript.Sleep 30000		' поскольку vbs не ждет пока отработает java, то ждем сами
+	Wscript.Sleep 30000		' РїРѕСЃРєРѕР»СЊРєСѓ vbs РЅРµ Р¶РґРµС‚ РїРѕРєР° РѕС‚СЂР°Р±РѕС‚Р°РµС‚ java, С‚Рѕ Р¶РґРµРј СЃР°РјРё
 
 	objShell.exec("cscript HTMLtoDOCXandSendToKindle.vbs")
 	
