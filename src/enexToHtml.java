@@ -70,7 +70,7 @@ public class enexToHtml {
 
         SAXBuilder sb = new SAXBuilder();
         Document docEnex, docHtml;
-        String title, content, fileName, folderPath, strTemp, enmediahash;
+        String title, content, strData, folderPath, strTemp, enmediahash;
         // получаем "красивый" формат для вывода XML
         Format fmt = Format.getPrettyFormat();
         XMLOutputter xo = new XMLOutputter(fmt);
@@ -97,7 +97,7 @@ public class enexToHtml {
                 //content  = "<html><body>" + content + "</body></html>";
                 //writeToFile(content, title + ".html");
 
-                fileName = node.getChildText("file-name");
+                strData = node.getChildText("file-name");
 
 //                List resource = node.getChildren("resource");
 //                Iterator resourceIterator = resource.iterator();
@@ -122,7 +122,16 @@ public class enexToHtml {
                     while (resource_iterator.hasNext()) {
                         Element resource_node = (Element) resource_iterator.next();
                         byte[] data;
-                        data = Base64.getMimeDecoder().decode(resource_node.getChildText("data"));
+                        strData = resource_node.getChildText("data").replaceAll("\\s",""); // удалить все пробелы
+                        if (strData.substring(strData.length() - 1).equals("=")) // удалить padding '=' если есть в конце
+                        {
+                            strData = strData.substring(0, strData.length() - 1); // удалить последний символ
+                            if (strData.substring(strData.length() - 1).equals("=")) // если есть еще один padding '=', то и его удаляем
+                            {
+                                strData = strData.substring(0, strData.length() - 1); // удалить последний символ
+                            }
+                        }
+                        data = Base64.getMimeDecoder().decode(strData);
                         if (resource_node.getChild("resource-attributes").getChild("file-name") != null) {
                             strTemp = resource_node.getChild("resource-attributes").getChildText("file-name");
                         } else if (resource_node.getChild("resource-attributes").getChild("source-url") != null) {
@@ -178,7 +187,7 @@ public class enexToHtml {
 
                 //System.out.println("title = " + title);
                 //System.out.println("content = " + content);
-                //System.out.println("file-name = " + fileName);
+                //System.out.println("file-name = " + strData);
                 //String id = node.getAttributeValue("id");
                 //String department = node.getChildText("tag");
                 //System.out.println(id + ": " + title + " - " + department);
